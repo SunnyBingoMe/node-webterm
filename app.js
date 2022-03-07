@@ -1,3 +1,16 @@
+console.log('Terminal size: ' + process.stdout.columns + 'x' + process.stdout.rows);
+
+var fs = require('fs')
+fs.readFile('./index.html', 'utf8', function (err,data) {
+  if (err) {
+    return console.log(err);
+  }
+  var result = data.replace(/80/g, process.stdout.columns).replace(/24/g, process.stdout.rows);
+  fs.writeFile('./index.html.tmp.swp', result, 'utf8', function (err) {
+     if (err) return console.log(err);
+  });
+});
+
 var http = require('http'),
     fs = require('fs'),
     socketio = require('socket.io'),
@@ -17,7 +30,7 @@ server.on('request', function(req, res) {
 		switch(req.url) {
 		case '/':
 		case '/index.html':
-			file = '/index.html';
+			file = '/index.html.tmp.swp';
 			break;
 		case '/webterm.js':
 			file = '/webterm.js';
