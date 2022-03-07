@@ -7,6 +7,7 @@ running this demo
 -----------------
 
 ```
+cd node-webterm
 npm install
 npm start
 ```
